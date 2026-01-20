@@ -189,8 +189,8 @@ Antes de executar o projeto, certifique-se de ter instalado:
 ### Passo 1: Clonar o Repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
-cd "moura tech"
+git clone git@github.com:Jampras/Moura-Tech-Desafio-2-Completo.git
+cd Moura-Tech-Desafio-2-Completo
 ```
 
 ---
