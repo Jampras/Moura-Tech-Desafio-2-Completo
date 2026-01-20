@@ -314,7 +314,7 @@ O sistema possui autenticação com roles (ADMIN/CLIENTE) usando BCrypt para has
 
 | Usuário | Senha | Role | Descrição |
 |---------|-------|------|-----------|
-| `admin` | `123` | ADMIN | Acesso total ao sistema |
+| `admin` | `admin123` | ADMIN | Acesso total ao sistema |
 
 ### Fluxo de Autenticação
 
