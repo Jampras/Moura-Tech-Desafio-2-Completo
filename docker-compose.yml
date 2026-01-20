@@ -1,0 +1,67 @@
+# =============================================
+# DOCKER COMPOSE - E-commerce Application
+# =============================================
+# Uso: docker compose up -d
+# Para parar: docker compose down
+# Para limpar volumes: docker compose down -v
+# =============================================
+
+services:
+  # ==========================================
+  # PostgreSQL Database
+  # ==========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: loja-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: loja_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # Persistência de dados
+      - postgres_data:/var/lib/postgresql/data
+      # Script de inicialização
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    # Limites de recursos
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d loja_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================
+  # Backend Spring Boot (Opcional - para produção)
+  # ==========================================
+  # backend:
+  #   build: .
+  #   container_name: loja-backend
+  #   restart: unless-stopped
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/loja_db
+  #     SPRING_DATASOURCE_USERNAME: postgres
+  #     SPRING_DATASOURCE_PASSWORD: postgres
+  #     JAVA_OPTS: "-Xms256m -Xmx512m"
+  #   ports:
+  #     - "8080:8080"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 768M
+  #       reservations:
+  #         memory: 512M
+
+volumes:
+  postgres_data:
+    driver: local

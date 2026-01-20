@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Técnico Executivo - Moura Tech</title>
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #0055A5;
+            --accent-gold: #F2A900;
+            --light-bg: #F5F7FA;
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --success: #10B981;
+            --border-color: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Cards */
+        section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        section h2 {
+            background: var(--primary-blue);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        section h2::before {
+            content: "◆";
+            color: var(--accent-gold);
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        /* 5W2H Grid */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .matrix-item {
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid var(--secondary-blue);
+        }
+
+        .matrix-item strong {
+            color: var(--secondary-blue);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Compliance Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        tbody tr:hover {
+            background: var(--light-bg);
+        }
+
+        .status-ok {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Code References */
+        code {
+            background: #E0E7EE;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+        }
+
+        /* Architecture Diagram */
+        .architecture-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .arch-box {
+            background: white;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 8px;
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+            color: var(--secondary-blue);
+        }
+
+        .arch-arrow {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* File List */
+        .file-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .file-item {
+            background: var(--light-bg);
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-item::before {
+            content: "📄";
+        }
+
+        /* Technology Badges */
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--secondary-blue);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Button */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--primary-blue);
+        }
+
+        .btn-primary:hover {
+            background: #D4940A;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-blue);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Print Styles */
+        @media print {
+            header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+
+            section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border-color);
+            }
+
+            body {
+                background: white;
+            }
+
+            main {
+                max-width: 100%;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📋 Relatório Técnico Executivo</h1>
+    <p>Sistema Fullstack de Gestão de Produtos e Carrinho</p>
+    <span class="badge">Desafio Técnico Moura Tech</span>
+</header>
+
+<main>
+
+    <!-- Matriz 5W2H -->
+    <section>
+        <h2>Matriz 5W2H - Visão Geral do Projeto</h2>
+        <div class="section-content">
+            <div class="matrix-grid">
+                <div class="matrix-item">
+                    <strong>O QUÊ (What)</strong>
+                    Sistema Fullstack de Gestão de Produtos com Carrinho de Compras e Checkout Transacional
+                </div>
+                <div class="matrix-item">
+                    <strong>POR QUÊ (Why)</strong>
+                    Desafio Técnico Moura Tech - Avaliação de competências em Arquitetura de Software e Boas Práticas
+                </div>
+                <div class="matrix-item">
+                    <strong>QUEM (Who)</strong>
+                    Candidato ao Processo Seletivo Moura Tech
+                </div>
+                <div class="matrix-item">
+                    <strong>ONDE (Where)</strong>
+                    Java Spring Boot 3.2.1 (Backend) + React 18 / Vite 5 (Frontend) + PostgreSQL 16 (Database)
+                </div>
+                <div class="matrix-item">
+                    <strong>QUANDO (When)</strong>
+                    Janeiro de 2026
+                </div>
+                <div class="matrix-item">
+                    <strong>COMO (How)</strong>
+                    Arquitetura em Camadas (Controller → Service → Repository) seguindo princípios SOLID
+                </div>
+                <div class="matrix-item">
+                    <strong>QUANTO (How Much)</strong>
+                    Escopo de Avaliação Técnica - MVP Funcional com regras de negócio implementadas
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arquitetura -->
+    <section>
+        <h2>Arquitetura do Sistema</h2>
+        <div class="section-content">
+            <div class="architecture-flow">
+                <div class="arch-box">Frontend<br><small>React + Vite</small></div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">Controller<br><small>REST API</small></div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">Service<br><small>Regras de Negócio</small></div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">Repository<br><small>JPA/Hibernate</small></div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">PostgreSQL<br><small>Database</small></div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-blue);">Arquivos Principais do Backend</h3>
+            <div class="file-list">
+                <div class="file-item"><code>ProductController.java</code></div>
+                <div class="file-item"><code>CartController.java</code></div>
+                <div class="file-item"><code>ProductService.java</code></div>
+                <div class="file-item"><code>OrderService.java</code></div>
+                <div class="file-item"><code>ProductRepository.java</code></div>
+                <div class="file-item"><code>OrderRepository.java</code></div>
+                <div class="file-item"><code>Product.java</code> (Entity)</div>
+                <div class="file-item"><code>Order.java</code> (Entity)</div>
+                <div class="file-item"><code>GlobalExceptionHandler.java</code></div>
+            </div>
+
+            <div class="tech-badges">
+                <span class="tech-badge">Java 17</span>
+                <span class="tech-badge">Spring Boot 3.2.1</span>
+                <span class="tech-badge">Spring Data JPA</span>
+                <span class="tech-badge">PostgreSQL 16</span>
+                <span class="tech-badge">Lombok</span>
+                <span class="tech-badge">SpringDoc OpenAPI</span>
+                <span class="tech-badge">React 18</span>
+                <span class="tech-badge">Vite 5</span>
+                <span class="tech-badge">Tailwind CSS 4</span>
+                <span class="tech-badge">Axios</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabela de Conformidade -->
+    <section>
+        <h2>Verificação de Requisitos - Conformidade</h2>
+        <div class="section-content" style="padding: 0;">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Requisito</th>
+                        <th style="width: 40%;">Implementação</th>
+                        <th style="width: 20%; text-align: center;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CRUD de Produtos</strong><br>GET, POST, PUT, DELETE</td>
+                        <td><code>ProductController</code> em <code>/api/products</code><br>Métodos: <code>findAll()</code>, <code>create()</code>, <code>update()</code>, <code>delete()</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endpoint de Checkout</strong><br>POST /cart/checkout</td>
+                        <td><code>CartController.checkout()</code><br>Recebe <code>CheckoutRequestDTO</code> com lista de itens</td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bloquear Preços Negativos</strong><br>Validação no cadastro</td>
+                        <td><code>ProductService.validateProduct()</code><br><code>if (price.compareTo(BigDecimal.ZERO) <= 0)</code> → <code>InvalidValueException</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bloquear Estoque Negativo</strong><br>Validação no cadastro</td>
+                        <td><code>ProductService.validateProduct()</code><br><code>if (stock < 0)</code> → <code>InvalidValueException</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Checkout Decrementa Estoque</strong><br>Atualização automática</td>
+                        <td><code>OrderService.processCartItem()</code><br><code>product.setStock(available - requested)</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bloquear Venda sem Estoque</strong><br>Validação antes da venda</td>
+                        <td><code>OrderService.processCartItem()</code><br><code>if (available < requested)</code> → <code>InsufficientStockException</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Carrinho Calcula Total</strong><br>Somatório automático</td>
+                        <td><code>Order.recalculateTotal()</code><br>Soma dos <code>OrderItem.subtotal</code> via <code>Stream.reduce()</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transação com Rollback</strong><br>Atomicidade no checkout</td>
+                        <td><code>@Transactional</code> em <code>OrderService.checkout()</code><br>Rollback automático em caso de falha</td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documentação Swagger</strong><br>OpenAPI disponível</td>
+                        <td><code>OpenApiConfig.java</code><br>Acessível em <code>/swagger-ui.html</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arquitetura em Camadas</strong><br>Controller / Service / Repository</td>
+                        <td>Pacotes: <code>controller/</code>, <code>service/</code>, <code>repository/</code><br>Separação clara de responsabilidades</td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Entidades JPA</strong><br>Products e Orders</td>
+                        <td><code>Product.java</code> → tabela <code>products</code><br><code>Order.java</code> → tabela <code>orders</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tratamento Global de Erros</strong><br>Respostas JSON padronizadas</td>
+                        <td><code>GlobalExceptionHandler</code> com <code>@RestControllerAdvice</code><br>Retorna <code>ErrorResponseDTO</code></td>
+                        <td class="status-ok" style="text-align: center;">✅ Implementado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Endpoints -->
+    <section>
+        <h2>Endpoints da API REST</h2>
+        <div class="section-content" style="padding: 0;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Endpoint</th>
+                        <th>Controller</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span style="background:#10B981;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">GET</span></td>
+                        <td><code>/api/products</code></td>
+                        <td><code>ProductController.findAll()</code></td>
+                        <td>Lista produtos (paginado)</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#10B981;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">GET</span></td>
+                        <td><code>/api/products/all</code></td>
+                        <td><code>ProductController.findAllList()</code></td>
+                        <td>Lista todos os produtos</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#10B981;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">GET</span></td>
+                        <td><code>/api/products/{id}</code></td>
+                        <td><code>ProductController.findById()</code></td>
+                        <td>Busca produto por ID</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#3B82F6;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">POST</span></td>
+                        <td><code>/api/products</code></td>
+                        <td><code>ProductController.create()</code></td>
+                        <td>Cria novo produto</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#F59E0B;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">PUT</span></td>
+                        <td><code>/api/products/{id}</code></td>
+                        <td><code>ProductController.update()</code></td>
+                        <td>Atualiza produto</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#EF4444;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">DELETE</span></td>
+                        <td><code>/api/products/{id}</code></td>
+                        <td><code>ProductController.delete()</code></td>
+                        <td>Exclui produto</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#3B82F6;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">POST</span></td>
+                        <td><code>/cart/checkout</code></td>
+                        <td><code>CartController.checkout()</code></td>
+                        <td>Finaliza compra</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#10B981;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">GET</span></td>
+                        <td><code>/cart/orders</code></td>
+                        <td><code>CartController.findAllOrders()</code></td>
+                        <td>Lista pedidos</td>
+                    </tr>
+                    <tr>
+                        <td><span style="background:#3B82F6;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;">POST</span></td>
+                        <td><code>/cart/orders/{id}/cancel</code></td>
+                        <td><code>CartController.cancelOrder()</code></td>
+                        <td>Cancela pedido</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Ações -->
+    <div class="action-buttons">
+        <a href="http://localhost:8080/swagger-ui.html" target="_blank" class="btn btn-primary">
+            📖 Acessar Swagger UI
+        </a>
+        <a href="http://localhost:3000" target="_blank" class="btn btn-secondary">
+            🖥️ Acessar Frontend
+        </a>
+    </div>
+
+</main>
+
+<footer>
+    <p>Relatório gerado automaticamente em Janeiro de 2026</p>
+    <p>Desafio Técnico Moura Tech - Sistema E-commerce</p>
+</footer>
+
+</body>
+</html>
